@@ -1,0 +1,31 @@
+export default {
+
+    // Title
+    'app.title': 'React App',
+
+    // BreadCrump
+    'app.breadcrump.home': 'Home',
+    'app.breadcrump.pageOne': 'First',
+    'app.breadcrump.pageTwo': 'Second',
+    'app.breadcrump.pageThree': 'Third',
+
+    // Index page
+    'app.index.header': 'Title page',
+    'app.index.toFirst': 'To the first page',
+    'app.index.toSecond': 'To the second page',
+
+    // First page
+    'app.first.header': 'First page',
+    'app.first.back': 'Back',
+    'app.first.submit': 'Submit',
+
+    // Second page
+    'app.second.header': 'Second page',
+    'app.second.toThird': 'To the third page',
+    'app.second.back': 'Back',
+
+    // Third page
+    'app.third.header': 'Third page',
+    'app.third.back': 'Back',
+
+}
