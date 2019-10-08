@@ -1,0 +1,82 @@
+package net.medrag.ReactApp.controller;
+
+import net.medrag.ReactApp.domain.User;
+import net.medrag.ReactApp.domain.UserService;
+import net.medrag.ReactApp.jwt.JwtTokenProvider;
+import net.medrag.ReactApp.jwt.TokenPair;
+import net.medrag.ReactApp.requests.LoginRequest;
+import net.medrag.ReactApp.requests.UserRoles;
+import net.medrag.ReactApp.security.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+/**
+ * {@author} Stanislav Tretyakov
+ * 27.09.2019
+ */
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private AuthenticationManager authenticationManager;
+    private JwtTokenProvider tokenProvider;
+    private UserService userService;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+        this.userService = userService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenPair> login(@Valid LoginRequest request) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+
+        TokenPair jwt = tokenProvider.generateTokenPair(authentication);
+
+        return ResponseEntity.ok(jwt);
+    }
+
+    @GetMapping("/getRoles")
+    public ResponseEntity<UserRoles> getUserRoles() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserPrincipal) {
+            UserPrincipal user = (UserPrincipal) principal;
+            List<String> roles = (user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+            return ResponseEntity.ok(new UserRoles(user.getEmail(), roles));
+        } else return ResponseEntity.ok(new UserRoles());
+    }
+
+    @PostMapping("/mycard")
+    public ResponseEntity<TokenPair> mycard(@RequestBody String x509email) {
+
+        Optional<User> byEmail = userService.findUserByEmail(x509email);
+        if (byEmail.isPresent()) {
+            User user = byEmail.get();
+            String authString = user.getRoles().stream().collect(Collectors.joining(","));
+            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authString);
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
+                    user.getEmail(), null, grantedAuthorities));
+            TokenPair jwt = tokenProvider.generateTokenPair(user.getEmail(), authString);
+            return ResponseEntity.ok(jwt);
+        } else return ResponseEntity.badRequest().build();
+    }
+}

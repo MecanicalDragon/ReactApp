@@ -2,12 +2,19 @@ export default {
 
     // Title
     'app.title': 'Приложение на Реакте',
+    'app.403': 'Посторонним вход воспрещён!',
 
     // BreadCrump
+    'app.breadcrump.login': 'Представьтесь',
     'app.breadcrump.home': 'Главная',
     'app.breadcrump.pageOne': 'Первая',
     'app.breadcrump.pageTwo': 'Вторая',
     'app.breadcrump.pageThree': 'Третья',
+    'app.breadcrump.denied': 'Запрещено',
+
+    // Login page
+    'app.login.header': 'Представьтесь, пожалуйста',
+    'app.login.incorrect': 'Логин.пароль неверны!',
 
     // Index page
     'app.index.header': 'Титульный лист',

@@ -80,7 +80,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {ASSET_PATH: JSON.stringify(publicPath)},
             SOME_VARIABLE: JSON.stringify('Caesar'),
-            DEPLOYED_URL: JSON.stringify('/'),
+            DEPLOYED_URL: JSON.stringify('http://localhost:8899/'),
         }),
         new MiniCssExtractPlugin({
             filename: 'assets/stylesheets/[name]/[hash].css'

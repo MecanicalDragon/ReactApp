@@ -10,10 +10,10 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import LocaleProvider from '@/locale/localeProvider'
 import 'react-notifications/lib/notifications.css';
 
+export const history = createBrowserHistory();
 
 export default function App() {
 
-    const history = createBrowserHistory();
     const WrappedPage = withRouter(Layout);
 
     return (

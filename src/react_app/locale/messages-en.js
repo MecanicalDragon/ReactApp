@@ -2,12 +2,19 @@ export default {
 
     // Title
     'app.title': 'React App',
+    'app.403': 'Access Denied',
 
     // BreadCrump
+    'app.breadcrump.login': 'Login',
     'app.breadcrump.home': 'Home',
     'app.breadcrump.pageOne': 'First',
     'app.breadcrump.pageTwo': 'Second',
     'app.breadcrump.pageThree': 'Third',
+    'app.breadcrump.denied': 'Denied',
+
+    // Login page
+    'app.login.header': 'Name yourself!',
+    'app.login.incorrect': 'Username/password is incorrect',
 
     // Index page
     'app.index.header': 'Title page',

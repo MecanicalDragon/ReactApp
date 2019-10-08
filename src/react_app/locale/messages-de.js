@@ -2,12 +2,19 @@ export default {
 
     // Title
     'app.title': 'German React App',
+    'app.403': 'Zugriff abgelehnt',
 
     // BreadCrump
+    'app.breadcrump.login': 'Anmeldung',
     'app.breadcrump.home': 'Startseite',
     'app.breadcrump.pageOne': 'Zuerst',
     'app.breadcrump.pageTwo': 'Zweite',
     'app.breadcrump.pageThree': 'Dritte',
+    'app.breadcrump.denied': 'Verweigert',
+
+    // Login page
+    'app.login.header': 'Nennen Sie sich',
+    'app.login.incorrect': 'Benutzername / Passwort ist falsch',
 
     // Index page
     'app.index.header': 'Titelblatt',

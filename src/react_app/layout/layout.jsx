@@ -7,14 +7,14 @@ import Locale from '../locale/locale';
 import BreadCrump from './breadcrump';
 import ApplicationRouter from '@/router/routerSwitch';
 import {NotificationContainer} from 'react-notifications';
+import * as AuthenticationService from '@/service/AuthenticationService';
 import {
     Container,
     Nav,
     Navbar,
-    NavItem,
     NavbarBrand,
-    NavLink,
-    Suspence
+    Suspence,
+    Button
 } from 'reactstrap';
 
 import "./layout.css";
@@ -27,6 +27,10 @@ class Layout extends React.Component {
         super(props)
     }
 
+    logout = () => {
+        AuthenticationService.logout();
+    };
+
     render() {
         return (
             <Fragment>
@@ -37,11 +41,12 @@ class Layout extends React.Component {
                                      onClick={() => this.props.history.push(routes.index())}>
                             <img style={{height: 50, width: 50}} src={logo} alt="Medrag logo"/>
                         </NavbarBrand>
-                        {/*<NavItem>*/}
-                        {/*<FormattedMessage id={'app.breadcrump.home'}/>*/}
-                        {/*</NavItem>*/}
                         <Nav className='ml-auto'>
                             <Locale history={this.props.history}/>
+                            {AuthenticationService.isUserLoggedIn() ?
+                                <Button style={{marginLeft: 15}} onClick={this.logout}>Logout</Button>
+                                : null
+                            }
                         </Nav>
                     </Container>
                 </Navbar>

@@ -29,4 +29,14 @@ public class PageController {
     public String third(){
         return "index.html";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "index.html";
+    }
+
+    @GetMapping("/denied")
+    public String denied(){
+        return "index.html";
+    }
 }
