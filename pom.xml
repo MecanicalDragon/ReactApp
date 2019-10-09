@@ -6,7 +6,8 @@
 
     <groupId>net.medrag</groupId>
     <artifactId>ReactApp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>war</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,7 +24,7 @@
         <maven.test.skip>true</maven.test.skip>
         <my.local.tomcat.id>MyLocalTomcat8</my.local.tomcat.id>
         <deployment.url>http://localhost:8080/manager/text</deployment.url>
-        <deployment.path>reactapp</deployment.path>
+        <deployment.path>/</deployment.path>
     </properties>
 
     <dependencies>
