@@ -1,5 +1,6 @@
 package net.medrag.ReactApp.controller;
 
+import io.swagger.annotations.*;
 import net.medrag.ReactApp.domain.User;
 import net.medrag.ReactApp.domain.UserService;
 import net.medrag.ReactApp.jwt.JwtTokenProvider;
@@ -8,6 +9,7 @@ import net.medrag.ReactApp.requests.LoginRequest;
 import net.medrag.ReactApp.requests.UserRoles;
 import net.medrag.ReactApp.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/auth")
+@Api(value = "Authentication", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
 
     private AuthenticationManager authenticationManager;
@@ -42,7 +45,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenPair> login(@Valid LoginRequest request) {
+    @ApiOperation("Perform login")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = TokenPair.class)})
+    public ResponseEntity<TokenPair> login(@ApiParam(value="email and password", required = true) @Valid LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -56,6 +61,7 @@ public class AuthController {
     }
 
     @GetMapping("/getRoles")
+    @ApiOperation("Receive list of user roles")
     public ResponseEntity<UserRoles> getUserRoles() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserPrincipal) {
@@ -66,6 +72,7 @@ public class AuthController {
     }
 
     @PostMapping("/mycard")
+    @ApiOperation("Performs authentication with smartcard (not implemented yet).")
     public ResponseEntity<TokenPair> mycard(@RequestBody String x509email) {
 
         Optional<User> byEmail = userService.findUserByEmail(x509email);

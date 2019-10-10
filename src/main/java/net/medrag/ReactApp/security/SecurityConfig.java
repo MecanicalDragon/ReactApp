@@ -29,6 +29,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] SWAGGER = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**"};
+    private static final String[] ACTUATOR = {"/actuator/info", "/actuator/health"};
+    private static final String[] PAGE_CONTROLLER = {"/auth/**", "/token/**", "/page1/**", "/page2/**", "/page3/**", "/login"};
+    private static final String[] RESOURCES = {"/", "/**/*.woff", "/**/*.ttf", "/favicon.ico", "/**/*.png", "/**/*.gif",
+            "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
+
     @Autowired
     private UDService udService;
 
@@ -76,11 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/token/**", "/page1/**", "/page2/**", "/page3/**", "/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/", "/**/*.woff", "/**/*.ttf", "/favicon.ico", "/**/*.png", "/**/*.gif",
-                        "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
-//                .antMatchers("/actuator/info", "/actuator/health").permitAll()
+                .antMatchers(PAGE_CONTROLLER).permitAll()
+                .antMatchers(RESOURCES).permitAll()
+                .antMatchers(ACTUATOR).permitAll()
+                .antMatchers(SWAGGER).permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
