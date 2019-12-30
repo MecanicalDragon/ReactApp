@@ -78,7 +78,7 @@ public class AuthController {
         Optional<User> byEmail = userService.findUserByEmail(x509email);
         if (byEmail.isPresent()) {
             User user = byEmail.get();
-            String authString = user.getRoles().stream().collect(Collectors.joining(","));
+            String authString = String.join(",", user.getRoles());
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authString);
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
                     user.getEmail(), null, grantedAuthorities));
