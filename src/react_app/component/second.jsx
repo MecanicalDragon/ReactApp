@@ -22,6 +22,10 @@ class Second extends Component {
                         this.props.history.push(routes.pageThree())
                     }}><FormattedMessage id={'app.second.toThird'}/></Button>
                     <p/>
+                    <Button color={"primary"} onClick={() => {
+                        this.props.history.push(routes.dnd())
+                    }}><FormattedMessage id={'app.second.toDnd'}/></Button>
+                    <p/>
                     <Button onClick={() => {
                         this.props.history.push(routes.index())
                     }}><FormattedMessage id={'app.second.back'}/></Button>

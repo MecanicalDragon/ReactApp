@@ -20,7 +20,7 @@ class First extends Component {
     }
 
     submit = () => {
-        NotificationManager.success(this.state.name, this.state.surname, 30000, () => {
+        NotificationManager.success(this.state.name, this.state.surname, 3000, () => {
         });
     };
 

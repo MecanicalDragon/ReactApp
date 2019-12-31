@@ -10,6 +10,7 @@ export default {
     'app.breadcrump.pageOne': 'First',
     'app.breadcrump.pageTwo': 'Second',
     'app.breadcrump.pageThree': 'Third',
+    'app.breadcrump.dnd': 'DnD',
     'app.breadcrump.denied': 'Denied',
 
     // Login page
@@ -29,6 +30,7 @@ export default {
     // Second page
     'app.second.header': 'Second page',
     'app.second.toThird': 'To the third page',
+    'app.second.toDnd': 'To Drag-n-drop',
     'app.second.back': 'Back',
 
     // Third page

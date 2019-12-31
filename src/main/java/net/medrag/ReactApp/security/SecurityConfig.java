@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] SWAGGER = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**"};
     private static final String[] ACTUATOR = {"/actuator/info", "/actuator/health"};
-    private static final String[] PAGE_CONTROLLER = {"/auth/**", "/token/**", "/page1/**", "/page2/**", "/page3/**", "/login"};
+    private static final String[] PAGE_CONTROLLER = {"/auth/**", "/token/**", "/page1/**", "/page2/**", "/page3/**", "/login", "/dnd"};
     private static final String[] RESOURCES = {"/", "/**/*.woff", "/**/*.ttf", "/favicon.ico", "/**/*.png", "/**/*.gif",
             "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
 

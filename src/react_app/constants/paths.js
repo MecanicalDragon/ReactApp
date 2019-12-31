@@ -4,6 +4,7 @@ export const Home = "Home";
 export const pageOne = "Page One";
 export const pageTwo = "Page Two";
 export const pageThree = "Page Three";
+export const dnd = "DragNdrop";
 export const Login = "Login";
 export const Denied = "Denied";
 
@@ -27,6 +28,11 @@ paths[pageThree] =  {
     formattedId: "app.breadcrump.pageThree",
     pathElements: [Home, pageTwo],
     link: routes.pageThree()
+};
+paths[dnd] =  {
+    formattedId: "app.breadcrump.dnd",
+    pathElements: [Home, pageTwo],
+    link: routes.dnd()
 };
 paths[Login] =  {
     formattedId: "app.breadcrump.login",

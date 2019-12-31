@@ -10,6 +10,7 @@ export default {
     'app.breadcrump.pageOne': 'Первая',
     'app.breadcrump.pageTwo': 'Вторая',
     'app.breadcrump.pageThree': 'Третья',
+    'app.breadcrump.dnd': 'ДнД',
     'app.breadcrump.denied': 'Запрещено',
 
     // Login page
@@ -29,6 +30,7 @@ export default {
     // Second page
     'app.second.header': 'Вторая страница',
     'app.second.toThird': 'На третью страницу',
+    'app.second.toDnd': 'К драг-н-дропу',
     'app.second.back': 'Назад',
 
     // Third page

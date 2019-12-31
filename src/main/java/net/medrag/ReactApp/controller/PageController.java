@@ -30,6 +30,11 @@ public class PageController {
         return "index.html";
     }
 
+    @GetMapping("/dnd")
+    public String dnd(){
+        return "index.html";
+    }
+
     @GetMapping("/login")
     public String login(){
         return "index.html";
