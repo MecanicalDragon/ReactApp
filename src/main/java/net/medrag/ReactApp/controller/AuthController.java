@@ -2,7 +2,7 @@ package net.medrag.ReactApp.controller;
 
 import io.swagger.annotations.*;
 import net.medrag.ReactApp.domain.User;
-import net.medrag.ReactApp.domain.UserService;
+import net.medrag.ReactApp.domain.UserRepo;
 import net.medrag.ReactApp.jwt.JwtTokenProvider;
 import net.medrag.ReactApp.jwt.TokenPair;
 import net.medrag.ReactApp.requests.LoginRequest;
@@ -35,13 +35,13 @@ public class AuthController {
 
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider tokenProvider;
-    private UserService userService;
+    private UserRepo userRepo;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider, UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider, UserRepo userRepo) {
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
-        this.userService = userService;
+        this.userRepo = userRepo;
     }
 
     @PostMapping("/login")
@@ -75,7 +75,7 @@ public class AuthController {
     @ApiOperation("Performs authentication with smartcard (not implemented yet).")
     public ResponseEntity<TokenPair> mycard(@RequestBody String x509email) {
 
-        Optional<User> byEmail = userService.findUserByEmail(x509email);
+        Optional<User> byEmail = userRepo.findUserByEmail(x509email);
         if (byEmail.isPresent()) {
             User user = byEmail.get();
             String authString = String.join(",", user.getRoles());

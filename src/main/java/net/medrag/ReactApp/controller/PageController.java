@@ -17,12 +17,12 @@ public class PageController {
 
     @GetMapping("/page1")
     public String first(){
-        return "index.html";
+        return "page1.html";
     }
 
     @GetMapping("/page2")
     public String second(){
-        return "index.html";
+        return "page2.html";
     }
 
     @GetMapping("/page3")
@@ -37,11 +37,11 @@ public class PageController {
 
     @GetMapping("/login")
     public String login(){
-        return "index.html";
+        return "login.html";
     }
 
     @GetMapping("/denied")
     public String denied(){
-        return "index.html";
+        return "denied.html";
     }
 }

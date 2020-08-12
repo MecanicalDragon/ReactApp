@@ -9,12 +9,11 @@ import java.util.*;
  * 27.09.2019
  */
 @Service
-public class UserService {
+public class UserRepo {
 
-    private static List<User>userRepo;
+    private static final List<User>userRepo = new ArrayList<>();
 
     static {
-        userRepo = new ArrayList<>();
         userRepo.add(new User("admin@react.com",
                 "$2a$10$Fyfo/en9rTrWuSuFrBo0jeLUVVEYKXIXihzd3thhPVq3mJphj38CW", //  password: admin
                 Arrays.asList("ROLE_USER", "ROLE_ADMIN")));

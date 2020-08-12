@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>index</title>
+    <link href="/favicon.ico" rel="shortcut icon"/>
+</head>
+<body>
+index
+<label for="email">Email</label><input type="text" id="email"/>
+<label for="pass">Pass</label><input type="text" id="pass"/>
+<button onClick="confirm()">Confirm</button>
+
+<script>
+    const confirm = function () {
+      var email = document.getElementById("email").value;
+      var pass = document.getElementById("pass").value;
+
+      console.log(email);
+      console.log(pass);
+
+      let url = new URL("http://localhost:8899/auth/login");
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: pass
+        })
+      }).then(function (response) {
+        if (response.status !== 200)
+          failedRequest = true;
+        return response.text();
+      }).then(function (resp) {
+        if (failedRequest) {
+          console.log(resp);
+          alert(resp);
+        } else {
+          let table = document.getElementById("reqsBody");
+          table.innerHTML = table.innerHTML + "<tr><td style='padding-top: 6px'>"
+                  + resp + "</td><td>" + getShowButton(resp)
+                  + "</td><td>" + getUpdateButton(resp) + "</td><td>"
+                  + getDeleteButton(resp) + "</td></tr>";
+          document.getElementById("reqId").value = "";
+          document.getElementById("xml").value = "";
+        }
+      });
+    }
+</script>
+</body>
+</html>

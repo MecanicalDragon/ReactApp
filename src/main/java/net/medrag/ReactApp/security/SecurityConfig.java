@@ -29,24 +29,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH = {"/", "/auth/**", "/login/**", "/denied/**"};
     private static final String[] SWAGGER = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**"};
     private static final String[] ACTUATOR = {"/actuator/info", "/actuator/health"};
-    private static final String[] PAGE_CONTROLLER = {"/auth/**", "/token/**", "/page1/**", "/page2/**", "/page3/**", "/login", "/dnd"};
+    private static final String[] USER_PAGES = {"/page1/**", "/page2/**"};
+    private static final String[] ADMIN_PAGES = {"/page3/**", "/dnd"};
     private static final String[] RESOURCES = {"/", "/**/*.woff", "/**/*.ttf", "/favicon.ico", "/**/*.png", "/**/*.gif",
             "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js"};
-
-    @Autowired
-    private UDService udService;
-
-    @Bean
-    public JwtAuthenticationEntryPoint unauthorizedHandler() {
-        return new JwtAuthenticationEntryPoint();
-    }
-
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
-    }
 
     @Bean
     public JwtTokenProvider jwtTokenProvider() {
@@ -56,8 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(udService)
+                .userDetailsService(udService())
                 .passwordEncoder(passwordEncoder());
+    }
+
+    private UDService udService() {
+        return new UDService();
     }
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -77,19 +70,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler())
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(PAGE_CONTROLLER).permitAll()
-                .antMatchers(RESOURCES).permitAll()
-                .antMatchers(ACTUATOR).permitAll()
-                .antMatchers(SWAGGER).permitAll()
-                .anyRequest().authenticated();
+//                .authenticationEntryPoint(unauthorizedHandler())
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.OPTIONS).permitAll()
+//                .antMatchers(AUTH).permitAll()
+//                .antMatchers(RESOURCES).permitAll()
+//                .antMatchers(ADMIN_PAGES).hasRole("ROLE_ADMIN")
+//                .antMatchers(USER_PAGES).hasAnyRole("ROLE_USER","ROLE_ADMIN")
+//                .anyRequest().authenticated()
+                  ;
 
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
